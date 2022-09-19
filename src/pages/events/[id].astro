@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { PrismicRichText } from '@prismicio/react'
+import {getAllEvents} from '../../prismic';
+
+export async function getStaticPaths() {
+  const events = await getAllEvents();
+
+  return events.map((event) => {
+    return {
+      params: { id: event.id },
+      props: { event }
+    };
+  });
+}
+
+const { id } = Astro.params;
+const { event } = Astro.props;
+
+---
+<Layout title={event.uid}>
+    <div class="container mx-auto px-80 mb-8 space-y-6 py-3">
+        <h1 class="text-4xl">{event.data.title[0].text}</h1>
+        <figure class="relative overflow-hidden shadow-md mb-10">
+            <img src={event.data.image.url} alt={event.data.title[0].text} class='object-top h-full w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg' />
+        </figure>
+        <h1 class="text-4xl">Duration - {`${event.data.duration}mins`}</h1>
+        <h1 class="text-4xl">Price - {`${event.data.price}$`}</h1>
+        <PrismicRichText field={event.data.description} />
+    </div>
+</Layout>

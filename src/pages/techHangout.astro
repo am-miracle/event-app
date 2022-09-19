@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { getAllCategories } from '../prismic.js';
+
+const events = await getAllCategories('tech-hangout');
+
+---
+
+<Layout title={events.results[0].tags[0]}>
+	<main>
+		<div class="md:flex md:justify-evenly md:items-center space-y-2 mt-8 px-4 overflow-hidden">
+			{events.results.map(event => <Card event={event}></Card>)}
+		</div>
+	</main>
+</Layout>
+

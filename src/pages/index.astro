@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import { getAllEvents } from '../prismic.js';
+
+const events = await getAllEvents();
+---
+
+<Layout title="Event App.">
+	<main>
+		<div class="md:flex md:justify-evenly md:items-center flex-wrap mt-8 px-4 overflow-hidden">
+			{events.map(event => <Card event={event}></Card>)}
+		</div>
+	</main>
+</Layout>
+

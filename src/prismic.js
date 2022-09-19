@@ -1,6 +1,6 @@
 import Prismic from '@prismicio/client';
 
-const API_ENDPOINT = "https://event-manager-app.prismic.io/api/v2";
+const API_ENDPOINT = process.env.ASTRO_PUBLIC_PRISMIC_URL;
 
 const Client = Prismic.createClient(API_ENDPOINT);
 
